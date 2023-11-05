@@ -1,0 +1,22 @@
+---
+- name: "Building containers"
+  hosts: localhost
+  tasks: 
+  - name: stop 
+    command: docker stop abdobz-web-site
+    ignore_errors: yes
+
+  - name: remove container
+    command: docker rm abdobz-web-site
+    ignore_errors: yes
+
+  - name: remove 
+    command: docker rmi web-site
+    ignore_errors: yes
+
+  - name: build abdobz/web-site-image
+    command: docker build -t web-site .
+
+  - name: run
+    command: docker run -d --name abdobz-web-site -p 8087:80 web-site
+    
